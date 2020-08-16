@@ -36,15 +36,14 @@ router.post('/', passport.authenticate('jwt', { session: false}), (req, res) => 
   if (!isValid) {
     return res.status(400).json(errors);
   }
-  const newPost = {
+  const p = new Post({
     text: req.body.text,
     name: req.body.name,
     avatar: req.body.avatar,
     user: req.user.id
-  };
-  newPost
-  .save()
-  .then(post => res.json(post));
+  });
+
+  p.save().then(post => res.json(post));
 });
 
 // @route     DELETE api/post/:id
